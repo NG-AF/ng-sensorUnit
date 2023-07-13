@@ -13,7 +13,7 @@ cd ng-sensorUnit/
 ```
 
 ## Notes
-#### (Teleplot0)[https://marketplace.visualstudio.com/items?itemName=alexnesnes.teleplot] extension is used to plot the data. 
+#### [Teleplot0](https://marketplace.visualstudio.com/items?itemName=alexnesnes.teleplot) extension is used to plot the data. 
 ```
 Serial.print(">{varName});
 Serial.println({var});
