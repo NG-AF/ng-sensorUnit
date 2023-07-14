@@ -12,56 +12,53 @@ file in a relevant directory) where a recipient would be likely to look
 for such a notice.
 *************************************************************************/
 
+//! Optimization
+//* Before:  RAM:   [=         ]   7.0% (used 22896 bytes from 327680 bytes)
+//*          Flash: [==        ]  22.6% (used 296477 bytes from 1310720 bytes)
+
+//* After:   RAM:   [=         ]   7.0% (used 22856 bytes from 327680 bytes)
+//*          Flash: [==        ]  20.1% (used 263825 bytes from 1310720 bytes
+
 #include <Arduino.h>
 #include <Deneyap_6EksenAtaletselOlcumBirimi.h>
-
-LSM6DSM IMU; // Create IMU object
 
 struct IMUVals
 {
   float gX, gY, gZ; // Create variables for Gyro Values
   float aX, aY, aZ; // Create variables for Accel Values
-} imuv;
+};
 
-void sendValuesToPlotter() { // Print values to plotter
-  Serial.print(">Gyro X:");
-  Serial.println(imuv.gX);
+LSM6DSM IMU; // Create IMU object
 
-  Serial.print(">Gyro Y:");
-  Serial.println(imuv.gY);
-
-  Serial.print(">Gyro Z:");
-  Serial.println(imuv.gZ);
-
-  Serial.print(">Accel X:");
-  Serial.println(imuv.aX);
-
-  Serial.print(">Accel Y:");
-  Serial.println(imuv.aY);
-
-  Serial.print(">Accel Z:");
-  Serial.println(imuv.aZ);
-} 
+void sendValuesToPlotter(IMUVals imu) { // Print values to plotter
+  Serial.println(">Gyro X:" + String(imu.gX));
+  Serial.println(">Gyro Y:" + String(imu.gY));
+  Serial.println(">Gyro Z:" + String(imu.gZ));
+  Serial.println(">Accel X:" + String(imu.aX));
+  Serial.println(">Accel Y:" + String(imu.aY));
+  Serial.println(">Accel Z:" + String(imu.aZ));
+}
 
 void setup() {
-  Serial.begin(115200);                               // Seri haberleşme başlatıldı
-    while (IMU.begin() != IMU_SUCCESS) {              // begin(slaveAdress) fonksiyonu ile cihazların haberleşmesi başlatıldı
-        Serial.println("I2C bağlantısı başarısız ");  // I2C bağlantısı başarısız olursa seri terminale yazdırma
-        delay(1000);                                 
+  Serial.begin(115200);
+  while (IMU.begin() != IMU_SUCCESS) {
+    Serial.println("I2C bağlantısı başarısız ");
+    delay(1000);
   }
 }
 
 void loop() {
-  //? Read Gyro Values
+  IMUVals imuv;
+
+    //? Read Gyro Values
   imuv.gX = IMU.readFloatGyroX();
   imuv.gY = IMU.readFloatGyroY();
   imuv.gZ = IMU.readFloatGyroZ();  
-  delay(50);
-  //? Read Accel Values
+
+    //? Read Accel Values
   imuv.aX = IMU.readFloatAccelX();
   imuv.aY = IMU.readFloatAccelY();
   imuv.aZ = IMU.readFloatAccelZ();
-  delay(50);
 
-  sendValuesToPlotter(); // Print values to plotter
+  sendValuesToPlotter(imuv); // Print values to plotter
 }
