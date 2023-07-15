@@ -12,19 +12,25 @@ file in a relevant directory) where a recipient would be likely to look
 for such a notice.
 *************************************************************************/
 
+//* LOCAL LIBRARIES
 #include "bmp.h"
 #include "imu.h"
+
+//* EXTERNAL LIBRARIES
 #include <Adafruit_BMP085.h>
 #include <Arduino.h>
 #include <Deneyap_6EksenAtaletselOlcumBirimi.h>
 #include <SPI.h>
 
+//* GLOBAL VARIABLES
 LSM6DSM IMU; // Create IMU object
 IMUVals imu;
 
 Adafruit_BMP085 BMP; // Create BMP object
 BMPVals bmp;
 
+
+//* FUCNTIONS
 void setup() {
   Serial.begin(115200); // Start serial communication
   Serial.println("Serial started");

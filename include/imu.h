@@ -13,6 +13,7 @@ file in a relevant directory) where a recipient would be likely to look
 for such a notice.
 *************************************************************************/
 
+//* EXTERNAL LIBRARIES
 #include <Arduino.h>
 #include <Deneyap_6EksenAtaletselOlcumBirimi.h>
 

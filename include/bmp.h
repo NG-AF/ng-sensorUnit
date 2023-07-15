@@ -12,10 +12,12 @@ file in a relevant directory) where a recipient would be likely to look
 for such a notice.
 *************************************************************************/
 
+//* EXTERNAL LIBRARIES
 #include <Adafruit_BMP085.h>
 #include <Arduino.h>
 #include <SPI.h>
 
+//* GLOBAL VARIABLES
 #define seaLevelPressure_hPa 1013.25
 
 class BMPVals {
