@@ -14,22 +14,10 @@ for such a notice.
 
 #include <Arduino.h>
 #include <Deneyap_6EksenAtaletselOlcumBirimi.h>
-#include "plot.h"
+#include "imu.h"
 
 LSM6DSM IMU; // Create IMU object
 IMUVals imu;
-
-void IMUVals::readValues() {
-  //? Read Gyro Values
-  imu.gX = IMU.readFloatGyroX();
-  imu.gY = IMU.readFloatGyroY();
-  imu.gZ = IMU.readFloatGyroZ();
-
-  //? Read Accel Values
-  imu.aX = IMU.readFloatAccelX();
-  imu.aY = IMU.readFloatAccelY();
-  imu.aZ = IMU.readFloatAccelZ();
-}
 
 void setup()
 {
@@ -43,5 +31,6 @@ void setup()
 
 void loop()
 {
-  sendValuesToPlotter(imu); // Print values to plotter
+  imu.readValues(IMU);
+  imu.sendValuesToPlotter();
 }
