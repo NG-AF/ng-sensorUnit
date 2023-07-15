@@ -16,7 +16,7 @@ for such a notice.
 #include "bmp.h"
 #include "imu.h"
 
-//* THIRD PARTY LIBRARIES
+//* EXTERNAL LIBRARIES
 #include <Adafruit_BMP085.h>
 #include <Arduino.h>
 #include <Deneyap_6EksenAtaletselOlcumBirimi.h>
@@ -31,13 +31,15 @@ BMPVals bmp;
 
 //* FUNCTIONS
 void setup() {
-  Serial.begin(115200);
-  while (IMU.begin() != IMU_SUCCESS) {
+  Serial.begin(115200); // Start serial communication
+  Serial.println("Serial started");
+
+  while (IMU.begin() != IMU_SUCCESS) { // Check if IMU is connected
     Serial.println("IMU connection failed");
     delay(500);
   }
 
-  while (BMP.begin() != true) {
+  while (BMP.begin() != true) { // Check if BMP is connected
     Serial.println("BMP connection failed");
     delay(500);
   }
