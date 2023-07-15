@@ -11,8 +11,8 @@ public:
 
     void readValues(Adafruit_BMP085 bmp) {
         airPressure = bmp.readPressure();
-        altitude = bmp.readAltitude(seaLevelPressure_hPa);
-        calcAltitude = bmp.readAltitude();
+        altitude = bmp.readAltitude();
+        calcAltitude = bmp.readAltitude(seaLevelPressure_hPa * 100);
     }
     
     void sendValuesToPlotter() {
