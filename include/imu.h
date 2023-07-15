@@ -13,6 +13,7 @@ file in a relevant directory) where a recipient would be likely to look
 for such a notice.
 *************************************************************************/
 
+//* EXTERNAL LIBRARIES
 #include <Arduino.h>
 #include <Deneyap_6EksenAtaletselOlcumBirimi.h>
 
@@ -21,7 +22,7 @@ public:
   float gX, gY, gZ; // Create variables for Gyro Values
   float aX, aY, aZ; // Create variables for Accel Values
 
-  void readValues(LSM6DSM IMU) {
+  void readValues(LSM6DSM IMU) { // Read IMU Values
     //? Read Gyro Values
     gX = IMU.readFloatGyroX();
     gY = IMU.readFloatGyroY();
