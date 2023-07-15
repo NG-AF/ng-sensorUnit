@@ -26,13 +26,15 @@ Adafruit_BMP085 BMP; // Create BMP object
 BMPVals bmp;
 
 void setup() {
-  Serial.begin(115200);
-  while (IMU.begin() != IMU_SUCCESS) {
+  Serial.begin(115200); // Start serial communication
+  Serial.println("Serial started");
+
+  while (IMU.begin() != IMU_SUCCESS) { // Check if IMU is connected
     Serial.println("IMU connection failed");
     delay(500);
   }
 
-  while (BMP.begin() != true) {
+  while (BMP.begin() != true) { // Check if BMP is connected
     Serial.println("BMP connection failed");
     delay(500);
   }

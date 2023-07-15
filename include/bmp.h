@@ -1,6 +1,6 @@
 /************************************************************************
-                                                                                Source Code Form License Notice
-                                                -------------------------------------------
+                    Source Code Form License Notice
+            -------------------------------------------
 
         This Source Code Form is subject to the terms of the Mozilla Public
         License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -20,15 +20,15 @@ for such a notice.
 
 class BMPVals {
 public:
-  float airPressure, altitude, calcAltitude;
+  float airPressure, altitude, calcAltitude; // Create variables for BMP Values
 
-  void readValues(Adafruit_BMP085 bmp) {
+  void readValues(Adafruit_BMP085 bmp) { // Read BMP Values
     airPressure = bmp.readPressure();
     altitude = bmp.readAltitude();
     calcAltitude = bmp.readAltitude(seaLevelPressure_hPa * 100);
   }
 
-  void sendValuesToPlotter() {
+  void sendValuesToPlotter() { // Print values to plotter
     Serial.println(">Air Pressure:" + String(airPressure));
     Serial.println(">Altitude:" + String(altitude));
     Serial.println(">Calculated Altitude:" + String(calcAltitude));
