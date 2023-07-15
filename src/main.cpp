@@ -29,8 +29,7 @@ IMUVals imu;
 Adafruit_BMP085 BMP; // Create BMP object
 BMPVals bmp;
 
-
-//* FUCNTIONS
+//* FUNCTIONS
 void setup() {
   Serial.begin(115200); // Start serial communication
   Serial.println("Serial started");
