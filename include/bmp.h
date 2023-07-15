@@ -1,6 +1,6 @@
 /************************************************************************
-                Source Code Form License Notice
-          -------------------------------------------
+				Source Code Form License Notice
+		  -------------------------------------------
 
   This Source Code Form is subject to the terms of the Mozilla Public
   License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -13,39 +13,25 @@ for such a notice.
 *************************************************************************/
 
 #include <Arduino.h>
-#include <Deneyap_6EksenAtaletselOlcumBirimi.h>
 #include <Adafruit_BMP085.h>
 #include <SPI.h>
-#include "imu.h"
-#include "bmp.h"
 
-LSM6DSM IMU; // Create IMU object
-IMUVals imu;
+#define seaLevelPressure_hPa 1013.25
 
-Adafruit_BMP085 BMP; // Create BMP object
-BMPVals bmp;
-
-void setup()
+class BMPVals
 {
-  Serial.begin(115200);
-  while (IMU.begin() != IMU_SUCCESS)
-  {
-    Serial.println("IMU connection failed");
-    delay(500);
-  }
+public:
+    float airPressure, altitude, calcAltitude;
 
-  while (BMP.begin() != true)
-  {
-    Serial.println("BMP connection failed");
-    delay(500);
-  }
-}
-
-void loop()
-{
-  imu.readValues(IMU);
-  imu.sendValuesToPlotter();
-
-  bmp.readValues(BMP);
-  bmp.sendValuesToPlotter();
-}
+    void readValues(Adafruit_BMP085 bmp) {
+        airPressure = bmp.readPressure();
+        altitude = bmp.readAltitude();
+        calcAltitude = bmp.readAltitude(seaLevelPressure_hPa * 100);
+    }
+    
+    void sendValuesToPlotter() {
+        Serial.println(">Air Pressure:" + String(airPressure));
+        Serial.println(">Altitude:" + String(altitude));
+        Serial.println(">Calculated Altitude:" + String(calcAltitude));
+    }
+};
