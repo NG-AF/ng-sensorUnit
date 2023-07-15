@@ -13,35 +13,22 @@ for such a notice.
 *************************************************************************/
 
 #include <Arduino.h>
-#include <Deneyap_6EksenAtaletselOlcumBirimi.h>
-#include "plot.h"
 
-LSM6DSM IMU; // Create IMU object
-IMUVals imu;
+class IMUVals {
+public:
+	float gX, gY, gZ; // Create variables for Gyro Values
+	float aX, aY, aZ; // Create variables for Accel Values
 
-void IMUVals::readValues() {
-  //? Read Gyro Values
-  imu.gX = IMU.readFloatGyroX();
-  imu.gY = IMU.readFloatGyroY();
-  imu.gZ = IMU.readFloatGyroZ();
+	void readValues();
+};
 
-  //? Read Accel Values
-  imu.aX = IMU.readFloatAccelX();
-  imu.aY = IMU.readFloatAccelY();
-  imu.aZ = IMU.readFloatAccelZ();
-}
 
-void setup()
-{
-  Serial.begin(115200);
-  while (IMU.begin() != IMU_SUCCESS)
-  {
-    Serial.println("I2C bağlantısı başarısız ");
-    delay(1000);
-  }
-}
-
-void loop()
-{
-  sendValuesToPlotter(imu); // Print values to plotter
+void sendValuesToPlotter(IMUVals imu)
+{ // Print values to plotter
+	Serial.println(">Gyro X:" + String(imu.gX));
+	Serial.println(">Gyro Y:" + String(imu.gY));
+	Serial.println(">Gyro Z:" + String(imu.gZ));
+	Serial.println(">Accel X:" + String(imu.aX));
+	Serial.println(">Accel Y:" + String(imu.aY));
+	Serial.println(">Accel Z:" + String(imu.aZ));
 }
