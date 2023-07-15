@@ -1,3 +1,4 @@
 {
-    "cmake.configureOnOpen": true
+    "cmake.configureOnOpen": true,
+    "cmake.sourceDirectory": "/home/hkayrad/Desktop/Projects/ng-sensorUnit/.pio/libdeps/deneyapkart/Adafruit BusIO"
 }

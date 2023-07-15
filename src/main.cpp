@@ -15,6 +15,7 @@ for such a notice.
 #include <Arduino.h>
 #include <Deneyap_6EksenAtaletselOlcumBirimi.h>
 #include <Adafruit_BMP085.h>
+#include <SPI.h>
 #include "imu.h"
 #include "bmp.h"
 

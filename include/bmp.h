@@ -1,5 +1,6 @@
 #include <Arduino.h>
 #include <Adafruit_BMP085.h>
+#include <SPI.h>
 
 #define seaLevelPressure_hPa 1013.25
 
