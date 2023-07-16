@@ -20,6 +20,7 @@ for such a notice.
 #include <Adafruit_BMP085.h>
 #include <Arduino.h>
 #include <Deneyap_6EksenAtaletselOlcumBirimi.h>
+#include <HTTPClient.h>
 #include <SPI.h>
 #include <WiFi.h>
 
@@ -30,7 +31,7 @@ IMUVals imu;
 //! Adafruit_BMP085 BMP; // Create BMP object
 //! BMPVals bmp;
 
-const char *ssid = "DOGAN_2.4GHz";     // WiFi SSID
+const char *ssid = "DOGAN_2.4GHz";   // WiFi SSID
 const char *password = "Hakan26181"; // WiFi Password
 
 //* FUNCTIONS
@@ -73,9 +74,20 @@ void setup() {
 }
 
 void loop() {
+  HTTPClient http;
+  http.begin("http://192.168.1.12:3001/api"); //! Don't forget to change IP addres when changing WiFi
+  http.addHeader("Content-Type", "application/json");
+
   imu.readValues(IMU);
   imu.sendValuesToPlotter();
-
   //! bmp.readValues(BMP);
   //! bmp.sendValuesToPlotter();
+
+  String payload =
+      "{\"gyro\":{\"x\":" + String(imu.gX) + ",\"y\":" + String(imu.gY) +
+      ",\"z\":" + String(imu.gZ) + "},\"accel\":{\"x\":" + String(imu.aX) +
+      ",\"y\":" + String(imu.aY) + ",\"z\":" + String(imu.aZ) + "}}";
+
+  http.POST(payload);
+  delay(10);
 }
