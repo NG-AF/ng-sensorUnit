@@ -83,11 +83,16 @@ void loop() {
   //! bmp.readValues(BMP);
   //! bmp.sendValuesToPlotter();
 
+  delay(25);
+
   String payload =
       "{\"gyro\":{\"x\":" + String(imu.gX) + ",\"y\":" + String(imu.gY) +
       ",\"z\":" + String(imu.gZ) + "},\"accel\":{\"x\":" + String(imu.aX) +
       ",\"y\":" + String(imu.aY) + ",\"z\":" + String(imu.aZ) + "}}";
 
+  //? Debug code
+  Serial.println(payload);
+
   http.POST(payload);
-  delay(10);
+  delay(25);
 }
