@@ -38,12 +38,8 @@ This repo is used for NG's sensor data gathering unit code. We can plot this cod
 
 ## Built With
 
-
-
 * [Deneyap Kart](https://deneyapkart.org/)
 * [PlatformIO](https://platformio.org/)
-* []()
-* []()
 
 ## Getting Started
 
