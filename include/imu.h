@@ -21,9 +21,9 @@ class IMUVals {
 public:
   const float g = 9.80665; // Gravitational acceleration [m/s^2]
 
-  float *gyroPRY = new float[3];      // Gyro values //? PRY: Pitch, Roll, Yaw
+  float *gyroPRY = new float[3];      // Gyro values
   float *gyroErrorPRY = new float[3]; // Gyro error values
-  float *accel = new float[3];        // Acceleration values //? X: East-West, Y: North-South, Z: Up-Down
+  float *accel = new float[3];        // Acceleration values
 
   void calibrateGyro(LSM6DSM IMU) {
 
@@ -31,14 +31,14 @@ public:
     delay(1500);
     Serial.println("Gyro calibration started");
 
-    int *gyroCalibrationIteration = new int;
+    int gyroCalibrationIteration;
 
     for (int i = 0; i < 3; i++) { // Set gyro error values to 0
       gyroErrorPRY[i] = 0;
     }
 
-    for (*gyroCalibrationIteration = 0; *gyroCalibrationIteration < 2000;
-         *gyroCalibrationIteration++) {
+    for (gyroCalibrationIteration = 0; gyroCalibrationIteration < 2000;
+         gyroCalibrationIteration++) {
       float *allAxesFloatData = new float[7]; // All axes float values
       IMU.readAllAxesFloatData(allAxesFloatData);
       for (int i = 0; i < 3;
@@ -50,10 +50,8 @@ public:
     }
 
     for (int i = 0; i < 3; i++) { // Calculate average gyro error values
-      gyroErrorPRY[i] /= *gyroCalibrationIteration;
+      gyroErrorPRY[i] /= gyroCalibrationIteration;
     }
-
-    delete gyroCalibrationIteration; // Free the memory of gyroCalibrationIteration
 
     Serial.println("Gyro calibration finished");
   }
@@ -63,9 +61,9 @@ public:
     IMU.readAllAxesFloatData(allAxesFloatData);
     for (int i = 0; i < 3;
          i++) { // Assign values to their corresponding variables
-      gyroPRY[i] =
-          allAxesFloatData[i] -
-          gyroErrorPRY[i]; // Subtract gyro error values from gyro values
+      gyroPRY[i] = ((allAxesFloatData[i] - //! Primitive error filtering
+          gyroErrorPRY[i]) > 0.25 || (allAxesFloatData[i] - //TODO: Change this filtering with a kalman filter
+          gyroErrorPRY[i]) < -0.25) ? allAxesFloatData[i] - gyroErrorPRY[i] : 0;
       accel[i] = allAxesFloatData[i + 3] * g; // Multiply accel values with g
     }
     delete[] allAxesFloatData; // Free the memory of allAxes
