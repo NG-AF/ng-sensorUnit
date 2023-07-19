@@ -17,6 +17,7 @@ for such a notice.
 #include <Arduino.h>
 #include <SPI.h>
 
+
 //* GLOBAL VARIABLES
 #define seaLevelPressure_hPa 1013.25
 

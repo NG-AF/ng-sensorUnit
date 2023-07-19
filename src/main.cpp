@@ -12,21 +12,19 @@ file in a relevant directory) where a recipient would be likely to look
 for such a notice.
 *************************************************************************/
 
-//* LOCAL LIBRARIES
-//! #include "bmp.h"
-#include "imu.h"
-
 //* EXTERNAL LIBRARIES
-#include <Adafruit_BMP085.h>
 #include <Arduino.h>
-#include <Deneyap_6EksenAtaletselOlcumBirimi.h>
-#include <HTTPClient.h>
+#include <Adafruit_BMP085.h>
 #include <SPI.h>
-#include <WiFi.h>
+//! #include <HTTPClient.h>
+//! #include <WiFi.h>
+
+//* LOCAL LIBRARIES
+#include "HKD_IMU.h"
+//! #include "bmp.h"
 
 //* GLOBAL VARIABLES
-LSM6DSM IMU; // Create IMU object
-IMUVals imu;
+IMU imu;
 
 //! Adafruit_BMP085 BMP; // Create BMP object
 //! BMPVals bmp;
@@ -35,7 +33,7 @@ const char *ssid = "DOGAN_2.4GHz";   // WiFi SSID
 const char *password = "Hakan26181"; // WiFi Password
 
 //* FUNCTIONS
-void initWifi() {
+/*//! void initWifi() {
   WiFi.mode(WIFI_STA);        // Set WiFi mode to station
   WiFi.begin(ssid, password); // Connect to WiFi
 
@@ -53,16 +51,13 @@ void initWifi() {
   Serial.println("RSSI: " + String(WiFi.RSSI()) + " dBm");
 
   delay(3000);
-}
+}*/
 
 void setup() {
   Serial.begin(115200); // Start serial communication
   Serial.println("Serial started");
 
-  while (IMU.begin() != IMU_SUCCESS) { // Check if IMU is connected
-    Serial.println("IMU connection failed");
-    delay(500);
-  }
+  imu.startIMU(2000); // Start IMU
 
   //! BMP code
   /* while (BMP.begin() != true) { // Check if BMP is connected
@@ -70,29 +65,30 @@ void setup() {
     delay(500);
   } */
 
-  initWifi();
+  //! initWifi();
 }
 
 void loop() {
-  HTTPClient http;
-  http.begin("http://192.168.1.12:3001/api"); //! Don't forget to change IP addres when changing WiFi
-  http.addHeader("Content-Type", "application/json");
+  // HTTPClient http;
+  // http.begin("http://192.168.1.12:3001/api"); //! Don't forget to change IP
+  // addres when changing WiFi http.addHeader("Content-Type",
+  // "application/json");
 
-  imu.readValues(IMU);
-  imu.sendValuesToPlotter();
+  imu.readValues();
+  imu.plotValuesToThePlotter();
   //! bmp.readValues(BMP);
   //! bmp.sendValuesToPlotter();
 
-  delay(25);
-
-  String payload =
+  //? Create JSON payload
+  /*//! String payload =
       "{\"gyro\":{\"x\":" + String(imu.gX) + ",\"y\":" + String(imu.gY) +
       ",\"z\":" + String(imu.gZ) + "},\"accel\":{\"x\":" + String(imu.aX) +
-      ",\"y\":" + String(imu.aY) + ",\"z\":" + String(imu.aZ) + "}}";
+      ",\"y\":" + String(imu.aY) + ",\"z\":" + String(imu.aZ) + "}}";*/
 
   //? Debug code
-  Serial.println(payload);
+  // Serial.println(payload);
 
-  http.POST(payload);
-  delay(25);
+  //? Send payload to server
+  //! http.POST(payload);
+  delay(10);
 }
