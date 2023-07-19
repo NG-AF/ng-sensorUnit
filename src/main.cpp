@@ -13,11 +13,10 @@ for such a notice.
 *************************************************************************/
 
 //* EXTERNAL LIBRARIES
-#include <Adafruit_BMP085.h>
 #include <Arduino.h>
-#include <Deneyap_6EksenAtaletselOlcumBirimi.h>
-#include <HTTPClient.h>
+#include <Adafruit_BMP085.h>
 #include <SPI.h>
+//! #include <HTTPClient.h>
 //! #include <WiFi.h>
 
 //* LOCAL LIBRARIES
