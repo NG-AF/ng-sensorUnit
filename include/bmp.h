@@ -20,6 +20,7 @@ for such a notice.
 
 //* GLOBAL VARIABLES
 #define seaLevelPressure_hPa 1013.25
+#define ankaraPressure_hPa 1008
 
 class BMPVals {
 public:
