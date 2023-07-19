@@ -1,0 +1,3 @@
+[submodule "lib/HKDIMU"]
+	path = lib/HKDIMU
+	url = https://github.com/hkdLibs/HKD_IMU.git
