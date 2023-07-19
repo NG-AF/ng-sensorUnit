@@ -12,10 +12,6 @@ file in a relevant directory) where a recipient would be likely to look
 for such a notice.
 *************************************************************************/
 
-//* LOCAL LIBRARIES
-//! #include "bmp.h"
-#include "imu.h"
-
 //* EXTERNAL LIBRARIES
 #include <Adafruit_BMP085.h>
 #include <Arduino.h>
@@ -23,6 +19,10 @@ for such a notice.
 #include <HTTPClient.h>
 #include <SPI.h>
 //! #include <WiFi.h>
+
+//* LOCAL LIBRARIES
+#include "HKD_IMU.h"
+//! #include "bmp.h"
 
 //* GLOBAL VARIABLES
 LSM6DSM IMU; // Create IMU object
