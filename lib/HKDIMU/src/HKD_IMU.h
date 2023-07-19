@@ -19,23 +19,28 @@ for such a notice.
 //* EXTERNAL LIBRARIES
 #include <Deneyap_6EksenAtaletselOlcumBirimi.h>
 
-class IMUVals {
+class IMU {
 public:
-  IMUVals();
-  
-  const float g = 9.80665; // Gravitational acceleration [m/s^2]; // Gravitational acceleration [m/s^2]
+  IMU();
 
-  float *gyroPRY = new float[3];      // Gyro values //? P: Pitch, R: Roll, Y: Yaw
+  LSM6DSM IntegratedIMU; // Create IMU object from Deneyap_6EksenAtaletselOlcumBirimi.h
+
+  const float g = 9.80665; // Gravitational acceleration [m/s^2];
+
+  float *gyroPRY = new float[3]; // Gyro values //? P: Pitch, R: Roll, Y: Yaw
   float *gyroErrorPRY = new float[3]; // Gyro error values
-  float *accel = new float[3];        // Acceleration values //? X: East-West, Y: North-South, Z: Up-Down
-  float *angleRP = new float[2];     // Angle values //? P: Pitch, R: Roll
+  float *accel = new float[3];   // Acceleration values //? X: East-West, Y:
+                                 // North-South, Z: Up-Down
+  float *angleRP = new float[2]; // Angle values //? P: Pitch, R: Roll
 
-  void calibrateGyro(LSM6DSM);
+  //? Runs once
+  void startIMU(int);
+  void calibrateGyro(int);
+
+  //? Can run indefinitely
   void calculateAngle();
-
-  void readValues(LSM6DSM);
-
-  void plotValuesToThePlotter(LSM6DSM);
+  void readValues();
+  void plotValuesToThePlotter();
 };
 
 #endif
