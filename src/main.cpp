@@ -25,8 +25,7 @@ for such a notice.
 //! #include "bmp.h"
 
 //* GLOBAL VARIABLES
-LSM6DSM IMU; // Create IMU object
-IMUVals imu;
+IMU imu;
 
 //! Adafruit_BMP085 BMP; // Create BMP object
 //! BMPVals bmp;
@@ -59,12 +58,7 @@ void setup() {
   Serial.begin(115200); // Start serial communication
   Serial.println("Serial started");
 
-  while (IMU.begin() != IMU_SUCCESS) { // Check if IMU is connected
-    Serial.println("IMU connection failed");
-    delay(500);
-  }
-
-  imu.calibrateGyro(IMU);
+  imu.startIMU(2000); // Start IMU
 
   //! BMP code
   /* while (BMP.begin() != true) { // Check if BMP is connected
@@ -76,12 +70,13 @@ void setup() {
 }
 
 void loop() {
-  //HTTPClient http;
-  //http.begin("http://192.168.1.12:3001/api"); //! Don't forget to change IP addres when changing WiFi
-  //http.addHeader("Content-Type", "application/json");
+  // HTTPClient http;
+  // http.begin("http://192.168.1.12:3001/api"); //! Don't forget to change IP
+  // addres when changing WiFi http.addHeader("Content-Type",
+  // "application/json");
 
-  imu.readValues(IMU);
-  imu.plotValuesToThePlotter(IMU);
+  imu.readValues();
+  imu.plotValuesToThePlotter();
   //! bmp.readValues(BMP);
   //! bmp.sendValuesToPlotter();
 
@@ -92,7 +87,7 @@ void loop() {
       ",\"y\":" + String(imu.aY) + ",\"z\":" + String(imu.aZ) + "}}";*/
 
   //? Debug code
-  //Serial.println(payload);
+  // Serial.println(payload);
 
   //? Send payload to server
   //! http.POST(payload);
