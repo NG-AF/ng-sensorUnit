@@ -85,12 +85,12 @@ void loop() {
       ",\"y\":" + String(imu.gyroPRY[1]) + ",\"z\":" + String(imu.gyroPRY[2]) +
       "},\"accel\":{\"x\":" + String(imu.accelG[0]) +
       ",\"y\":" + String(imu.accelG[1]) + ",\"z\":" + String(imu.accelG[2]) +
-      "} ,\"angle\":{\"roll\":" + String(imu.anglePR[1]) + "}}";
+      "} ,\"angle\":{\"roll\":" + String(imu.anglePRY[1]) + "}}";
 
   //? Debug code
   // Serial.println(payload);
 
   //? Send payload to server
-  http.POST(payload);
+  //http.POST(payload);
   delay(10);
 }
