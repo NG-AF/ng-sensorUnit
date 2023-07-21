@@ -13,11 +13,11 @@ for such a notice.
 *************************************************************************/
 
 //* EXTERNAL LIBRARIES
-#include <Arduino.h>
 #include <Adafruit_BMP085.h>
+#include <Arduino.h>
+#include <HTTPClient.h>
 #include <SPI.h>
-//! #include <HTTPClient.h>
-//! #include <WiFi.h>
+#include <WiFi.h>
 
 //* LOCAL LIBRARIES
 #include "HKD_IMU.h"
@@ -33,7 +33,7 @@ const char *ssid = "DOGAN_2.4GHz";   // WiFi SSID
 const char *password = "Hakan26181"; // WiFi Password
 
 //* FUNCTIONS
-/*//! void initWifi() {
+void initWifi() {
   WiFi.mode(WIFI_STA);        // Set WiFi mode to station
   WiFi.begin(ssid, password); // Connect to WiFi
 
@@ -51,7 +51,7 @@ const char *password = "Hakan26181"; // WiFi Password
   Serial.println("RSSI: " + String(WiFi.RSSI()) + " dBm");
 
   delay(3000);
-}*/
+}
 
 void setup() {
   Serial.begin(115200); // Start serial communication
@@ -65,14 +65,14 @@ void setup() {
     delay(500);
   } */
 
-  //! initWifi();
+  initWifi();
 }
 
 void loop() {
-  // HTTPClient http;
-  // http.begin("http://192.168.1.12:3001/api"); //! Don't forget to change IP
-  // addres when changing WiFi http.addHeader("Content-Type",
-  // "application/json");
+  HTTPClient http;
+  http.begin("http://192.168.1.12:3001/api"); //! Don't forget to change IP
+  // addres when changing WiFi
+  http.addHeader("Content-Type", "application/json");
 
   imu.readValues();
   imu.plotValuesToThePlotter();
@@ -80,15 +80,17 @@ void loop() {
   //! bmp.sendValuesToPlotter();
 
   //? Create JSON payload
-  /*//! String payload =
-      "{\"gyro\":{\"x\":" + String(imu.gX) + ",\"y\":" + String(imu.gY) +
-      ",\"z\":" + String(imu.gZ) + "},\"accel\":{\"x\":" + String(imu.aX) +
-      ",\"y\":" + String(imu.aY) + ",\"z\":" + String(imu.aZ) + "}}";*/
+  String payload =
+      "{\"gyro\":{\"x\":" + String(imu.gyroPRY[0]) +
+      ",\"y\":" + String(imu.gyroPRY[1]) + ",\"z\":" + String(imu.gyroPRY[2]) +
+      "},\"accel\":{\"x\":" + String(imu.accelG[0]) +
+      ",\"y\":" + String(imu.accelG[1]) + ",\"z\":" + String(imu.accelG[2]) +
+      "} ,\"angle\":{\"roll\":" + String(imu.anglePRY[1]) + "}}";
 
   //? Debug code
   // Serial.println(payload);
 
   //? Send payload to server
-  //! http.POST(payload);
+  //http.POST(payload);
   delay(10);
 }
