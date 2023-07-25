@@ -29,8 +29,8 @@ IMU imu;
 //! Adafruit_BMP085 BMP; // Create BMP object
 //! BMPVals bmp;
 
-const char *ssid = "DOGAN_2.4GHz";   // WiFi SSID
-const char *password = "Hakan26181"; // WiFi Password
+const char *ssid = "NGTelemetryNetwork";   // WiFi SSID
+const char *password = "99733940"; // WiFi Password
 
 //* FUNCTIONS
 void initWifi() {
@@ -70,7 +70,7 @@ void setup() {
 
 void loop() {
   HTTPClient http;
-  http.begin("http://192.168.1.12:3001/api"); //! Don't forget to change IP
+  http.begin("http://192.168.1.100:3001/api"); //! Don't forget to change IP
   // addres when changing WiFi
   http.addHeader("Content-Type", "application/json");
 
@@ -85,12 +85,14 @@ void loop() {
       ",\"y\":" + String(imu.gyroPRY[1]) + ",\"z\":" + String(imu.gyroPRY[2]) +
       "},\"accel\":{\"x\":" + String(imu.accelG[0]) +
       ",\"y\":" + String(imu.accelG[1]) + ",\"z\":" + String(imu.accelG[2]) +
-      "} ,\"angle\":{\"roll\":" + String(imu.anglePRY[1]) + "}}";
+      "} ,\"angle\":{\"roll\":" + String(imu.anglePRY[1]) +
+      ",\"pitch\":" + String(imu.anglePRY[0]) +
+      ",\"yaw\":" + String(imu.anglePRY[2]) + "}}";
 
   //? Debug code
   // Serial.println(payload);
 
   //? Send payload to server
-  //http.POST(payload);
+  http.POST(payload);
   delay(10);
 }
