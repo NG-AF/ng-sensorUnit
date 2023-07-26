@@ -81,13 +81,13 @@ void loop() {
 
   //? Create JSON payload
   String payload =
-      "{\"gyro\":{\"x\":" + String(imu.gyroPRY[0]) +
-      ",\"y\":" + String(imu.gyroPRY[1]) + ",\"z\":" + String(imu.gyroPRY[2]) +
-      "},\"accel\":{\"x\":" + String(imu.accelG[0]) +
-      ",\"y\":" + String(imu.accelG[1]) + ",\"z\":" + String(imu.accelG[2]) +
-      "} ,\"angle\":{\"roll\":" + String(imu.anglePRY[1]) +
-      ",\"pitch\":" + String(imu.anglePRY[0]) +
-      ",\"yaw\":" + String(imu.anglePRY[2]) + "}}";
+      "{\"gyro\":{\"x\":" + String(imu.telemetryData.gyroPRY[0]) +
+      ",\"y\":" + String(imu.telemetryData.gyroPRY[1]) + ",\"z\":" + String(imu.telemetryData.gyroPRY[2]) +
+      "},\"accel\":{\"x\":" + String(imu.telemetryData.accelG[0]) +
+      ",\"y\":" + String(imu.telemetryData.accelG[1]) + ",\"z\":" + String(imu.telemetryData.accelG[2]) +
+      "} ,\"angle\":{\"roll\":" + String(imu.telemetryData.anglePRY[1]) +
+      ",\"pitch\":" + String(imu.telemetryData.anglePRY[0]) +
+      ",\"yaw\":" + String(imu.telemetryData.anglePRY[2]) + "}}";
 
   //? Debug code
   // Serial.println(payload);
