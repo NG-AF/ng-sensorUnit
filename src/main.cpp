@@ -29,8 +29,8 @@ IMU imu;
 //! Adafruit_BMP085 BMP; // Create BMP object
 //! BMPVals bmp;
 
-const char *ssid = "NGTelemetryNetwork";   // WiFi SSID
-const char *password = "99733940"; // WiFi Password
+const char *ssid = "NGTelemetryNetwork"; // WiFi SSID
+const char *password = "99733940";       // WiFi Password
 
 //* FUNCTIONS
 void initWifi() {
@@ -70,7 +70,7 @@ void setup() {
 
 void loop() {
   HTTPClient http;
-  http.begin("http://192.168.1.100:3001/api"); //! Don't forget to change IP
+  http.begin("http://10.0.0.2:3001/api"); //! Don't forget to change IP
   // addres when changing WiFi
   http.addHeader("Content-Type", "application/json");
 
@@ -82,12 +82,15 @@ void loop() {
   //? Create JSON payload
   String payload =
       "{\"gyro\":{\"x\":" + String(imu.telemetryData.gyroPRY[0]) +
-      ",\"y\":" + String(imu.telemetryData.gyroPRY[1]) + ",\"z\":" + String(imu.telemetryData.gyroPRY[2]) +
+      ",\"y\":" + String(imu.telemetryData.gyroPRY[1]) +
+      ",\"z\":" + String(imu.telemetryData.gyroPRY[2]) +
       "},\"accel\":{\"x\":" + String(imu.telemetryData.accelG[0]) +
-      ",\"y\":" + String(imu.telemetryData.accelG[1]) + ",\"z\":" + String(imu.telemetryData.accelG[2]) +
+      ",\"y\":" + String(imu.telemetryData.accelG[1]) +
+      ",\"z\":" + String(imu.telemetryData.accelG[2]) +
       "} ,\"angle\":{\"roll\":" + String(imu.telemetryData.anglePRY[1]) +
       ",\"pitch\":" + String(imu.telemetryData.anglePRY[0]) +
-      ",\"yaw\":" + String(imu.telemetryData.anglePRY[2]) + "}}";
+      ",\"yaw\":" + String(imu.telemetryData.anglePRY[2]) +
+      "}, \"altitude\":" + String(imu.telemetryData.altitude) + "}";
 
   //? Debug code
   // Serial.println(payload);
