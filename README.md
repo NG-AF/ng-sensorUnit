@@ -15,7 +15,7 @@
   </p>
 </p>
 
-![Contributors](https://img.shields.io/github/contributors/NG-AF/ng-sensorUnit?color=dark-green) ![Issues](https://img.shields.io/github/issues/NG-AF/ng-sensorUnit) ![License](https://img.shields.io/badge/license-MPL2.0-blue)
+![Contributors](https://img.shields.io/github/contributors/NG-AF/ng-sensorUnit?color=dark-green) ![Issues](https://img.shields.io/github/issues/NG-AF/ng-sensorUnit) ![License](https://img.shields.io/badge/license-MPL2.0-blue)![GitHub repo size](https://img.shields.io/github/repo-size/NG-AF/ng-sensorUnit)
 
 
 ## Table Of Contents
