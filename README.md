@@ -1,6 +1,6 @@
 <br/>
 <p align="center">
-  <h3 align="center">NG-SensorUnit</h3>
+  <h3 align="center">NG-SensorUnit [DEPRECATED]</h3>
 
   <p align="center">
     NG Plane sensor gathering code
